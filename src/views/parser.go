@@ -1,19 +1,19 @@
 package views
 
 import (
-	"fmt"
 	"html/template"
 	"io/ioutil"
+	"log"
 )
 
 var Templates map[string]*template.Template
 
 func Parser() {
-	fmt.Println("[*]Caching templates")
+	log.Println("Caching templates")
 	Templates = make(map[string]*template.Template)
 	files, err := ioutil.ReadDir("./templates")
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
 	for _, file := range files {
 		filename := file.Name()
@@ -22,7 +22,7 @@ func Parser() {
 		Templates[filename] = t
 	}
 	for key := range Templates {
-		fmt.Println("[*]Found", key, "template")
+		log.Println("Found", key, "template")
 	}
-	fmt.Println("[*]Total templates", len(Templates))
+	log.Println("Total templates", len(Templates))
 }
