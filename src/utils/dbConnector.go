@@ -9,11 +9,13 @@ import (
 var Db sql.DB
 
 func InitDb() {
-	Db, err := sql.Open("mysql", "usimmonitor:uOslmBGUscQngIvu@tcp(10.9.0.3:3306)/usimmonitor")
+	Db, _ := sql.Open("mysql", "usimmonitor:uOslmBGUscQngIvu@tcp(10.9.0.3:3306)/usimmonitor")
+	log.Println("Pinging Database")
+	var err = Db.Ping()
 	if err != nil {
 		log.Fatal("Database connection failed")
 	}
-	log.Println("Database connection ok! %s", Db)
+	log.Println("Database connection ok!")
 }
 
 func GetDb() *sql.DB {
